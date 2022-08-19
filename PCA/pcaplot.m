@@ -1,18 +1,18 @@
 function pcaplot(modelo,PC1,PC2,PC3,options);
-% Função utilizada para desenvolver gráficos importantes para a comparar PCA.
+% Funcao utilizada para desenvolver graficos importantes para a comparar PCA.
 
 % input
-% modelo : Matriz X de dados
-% modelo.xaxis        % Dimensão do eixo-x. Por exemplo, número de onda.
-% modelo.T=[];        % Scores de cada PCA por amostra.
-% modelo.P=[];        % 
-% modelo.varexp=[];   % 
-% modelo.classX=[];   % vetor de classes referente às amostras da matriz X.
-% modelo.nsamples=[]; % nome das amostras (opcional)
-% PC1 = Primeira componente principal.
-% PC2 = Segunda componente principal.
-% PC3 = Terceira componente principal. Caso queira um grafico 3D.
-% options; 
+% modelo :         % Modelo desenvolvido a pcamodel.
+% modelo.xaxis     % Dimensao do eixo-x. Por exemplo, numero de onda.
+% modelo.T;        % Scores de cada PCA por amostra.
+% modelo.P;        %
+% modelo.varexp;   %
+% modelo.classX;   % Vetor de classes referente as amostras da matriz X.
+% modelo.nsamples; % Nome das amostras (opcional)
+% PC1:             % Primeira componente principal.
+% PC2:             % Segunda componente principal.
+% PC3:             % Terceira componente principal. Caso queira um grafico 3D.
+% options;
 % options.Score = (0) Sem grafico Score, (1) Com grafico Score, (2) Com
 % grafico Score biplot
 % options.Pareto = (0) Sem grafico Pareto, (1) Com grafico Pareto
@@ -30,13 +30,13 @@ function pcaplot(modelo,PC1,PC2,PC3,options);
 % pcaplot(modelo,1,2,3,options);
 % pcaplot(modelo,1,2);
 
-% Programar melhor a localização do spname, usar o vetor 0,0 como
+% Programar melhor a localizacao do spname, usar o vetor 0,0 como
 % referencia.
 
 %% Determinando certas propriedades necessarias.
 
 T = modelo.T;
-classX = modelo.classX; 
+classX = modelo.classX;
 varexp = modelo.varexp;
 xaxis = modelo.xaxis;
 npc = modelo.npc;
@@ -73,12 +73,12 @@ if options.Score > 0;
 
 if isempty(PC3)
     % Grafico 2D
-    
+
     figure(1);
     if options.Score ==1;
-    grafico_score(T,classX,varexp,PC1,PC2);hold on;  % Gráfico dos scores sem amostras de teste.
+    grafico_score(T,classX,varexp,PC1,PC2);hold on;  % Grï¿½fico dos scores sem amostras de teste.
       if options.Test ==1;
-      %plot(modelo.Ttest(:,PC1),modelo.Ttest(:,PC2),'r.','MarkerSize',6); hold on % Gráfico dos scores sem amostras de teste.   
+      %plot(modelo.Ttest(:,PC1),modelo.Ttest(:,PC2),'r.','MarkerSize',6); hold on % Grï¿½fico dos scores sem amostras de teste.
       scatter(modelo.Ttest(:,PC1),modelo.Ttest(:,PC2),100,'filled','MarkerFaceAlpha',0.6,'MarkerFaceColor',[0.8500 0.3250 0.0980],'MarkerEdgeColor',[[0.9100 0.4100 0.1700]]);
       A = size(unique(classX),1)+1;
       Legend = legend;
@@ -91,7 +91,7 @@ if isempty(PC3)
        end
     graf_S_L(T,P,classX,varexp,spname,PC1,PC2); hold on;
        if options.Test ==1;
-       %plot(modelo.Ttest(:,PC1),modelo.Ttest(:,PC2),'r.','MarkerSize',6); hold on % Gráfico dos scores sem amostras de teste.   
+       %plot(modelo.Ttest(:,PC1),modelo.Ttest(:,PC2),'r.','MarkerSize',6); hold on % Grï¿½fico dos scores sem amostras de teste.
        scatter(modelo.Ttest(:,PC1),modelo.Ttest(:,PC2),100,'filled','MarkerFaceAlpha',0.6,'MarkerFaceColor',[0.8500 0.3250 0.0980],'MarkerEdgeColor',[[0.9100 0.4100 0.1700]]);
        A = size(unique(classX),1)+1;
        Legend = legend;
@@ -100,17 +100,17 @@ if isempty(PC3)
     end
 
 else
-   % Gráfico 3D  
+   % Grï¿½fico 3D
    figure(1);
    if options.Score ==1;
-   grafico_score3D(T,classX,varexp,PC1,PC2,PC3);hold on;  % Gráfico dos scores sem amostras de teste.
+   grafico_score3D(T,classX,varexp,PC1,PC2,PC3);hold on;  % Grï¿½fico dos scores sem amostras de teste.
       if options.Test ==1;
-      %plot(modelo.Ttest(:,PC1),modelo.Ttest(:,PC2),'r.','MarkerSize',6); hold on % Gráfico dos scores sem amostras de teste.   
+      %plot(modelo.Ttest(:,PC1),modelo.Ttest(:,PC2),'r.','MarkerSize',6); hold on % Grï¿½fico dos scores sem amostras de teste.
       scatter3(modelo.Ttest(:,PC1),modelo.Ttest(:,PC2),modelo.Ttest(:,PC3),100,'filled','MarkerFaceAlpha',0.6,'MarkerFaceColor',[0.8500 0.3250 0.0980],'MarkerEdgeColor',[[0.9100 0.4100 0.1700]]);
       A = size(unique(classX),1)+1;
       Legend = legend;
       Legend.String(A) = {sprintf('Test')};
-      end   
+      end
    elseif options.Score == 2;
       if size(P,1) > 15;
       tab = sprintf('Nao e recomendado fazer biplot quando tem mais de 15 variaveis');
@@ -118,14 +118,14 @@ else
       end
    graf_S_L_3d(T,P,classX,varexp,spname,PC1,PC2,PC3);hold on;
       if options.Test ==1;
-      %plot(modelo.Ttest(:,PC1),modelo.Ttest(:,PC2),'r.','MarkerSize',6); hold on % Gráfico dos scores sem amostras de teste.   
+      %plot(modelo.Ttest(:,PC1),modelo.Ttest(:,PC2),'r.','MarkerSize',6); hold on % Grï¿½fico dos scores sem amostras de teste.
       scatter3(modelo.Ttest(:,PC1),modelo.Ttest(:,PC2),modelo.Ttest(:,PC3),100,'filled','MarkerFaceAlpha',0.6,'MarkerFaceColor',[0.8500 0.3250 0.0980],'MarkerEdgeColor',[[0.9100 0.4100 0.1700]]);
       A = size(unique(classX),1)+1;
       Legend = legend;
       Legend.String(A) = {sprintf('Test')};
-      end   
+      end
 
-   end   
+   end
 end
 
 end
@@ -133,34 +133,38 @@ end
 
 if options.Loading > 0;
 
-figure(2) % Gráfico dos loadings 
-subplot(2,1,1); 
-plot(xaxis,mean(modelo.X),'k','LineWidth',1);
-ylabel('Absorbancia','FontSize',14);
-subplot(2,1,2)
+figure(2) % Grafico dos loadings
+X2 = mean(modelo.X);
+P = modelo.P(:,1:1:5)';
+Pmin = min(min(P)); Pmax= max(max(P));
+X2 = (X2-min(X2))/(max(X2)-min(X2));
+X2 = X2*(Pmax/max(X2));
+X2 = X2+Pmax*1.1;
+plot(xaxis,X2,'k','LineWidth',1); hold on;
+ylabel('Variable','FontSize',14);
 if npc==2
-    plot(xaxis,modelo.P(:,1),'b'), hold on;  
+    plot(xaxis,modelo.P(:,1),'b'), hold on;
     plot(xaxis,modelo.P(:,2),'r'), hold off;
-    p1=sprintf('Load PC 1 (%0.2f)',modelo.varexp(1,2));  
-    p2=sprintf('Load PC 2 (%0.2f)',modelo.varexp(2,2));  
+    p1=sprintf('Load PC 1 (%0.2f)',modelo.varexp(1,2));
+    p2=sprintf('Load PC 2 (%0.2f)',modelo.varexp(2,2));
     legend(p1,p2);
 elseif npc==3
     plot(xaxis,modelo.P(:,1),'b'), hold on;
     plot(xaxis,modelo.P(:,2),'r'), hold on;
     plot(xaxis,modelo.P(:,3),'k'), hold off;
-    p1=sprintf('Load PC 1 (%0.2f)',modelo.varexp(1,2));  
-    p2=sprintf('Load PC 2 (%0.2f)',modelo.varexp(2,2));  
-    p3=sprintf('Load PC 3 (%0.2f)',modelo.varexp(3,2));  
+    p1=sprintf('Load PC 1 (%0.2f)',modelo.varexp(1,2));
+    p2=sprintf('Load PC 2 (%0.2f)',modelo.varexp(2,2));
+    p3=sprintf('Load PC 3 (%0.2f)',modelo.varexp(3,2));
     legend(p1,p2,p3);
 elseif npc==4
     plot(xaxis,modelo.P(:,1),'b'), hold on;
     plot(xaxis,modelo.P(:,2),'r'), hold on;
     plot(xaxis,modelo.P(:,3),'k'), hold on;
     plot(xaxis,modelo.P(:,4),'m'), hold off;
-    p1=sprintf('Load PC 1 (%0.2f)',modelo.varexp(1,2));  
-    p2=sprintf('Load PC 2 (%0.2f)',modelo.varexp(2,2));  
-    p3=sprintf('Load PC 3 (%0.2f)',modelo.varexp(3,2));  
-    p4=sprintf('Load PC 4 (%0.2f)',modelo.varexp(4,2));  
+    p1=sprintf('Load PC 1 (%0.2f)',modelo.varexp(1,2));
+    p2=sprintf('Load PC 2 (%0.2f)',modelo.varexp(2,2));
+    p3=sprintf('Load PC 3 (%0.2f)',modelo.varexp(3,2));
+    p4=sprintf('Load PC 4 (%0.2f)',modelo.varexp(4,2));
     legend(p1,p2,p3,p4);
 elseif npc>4
     plot(xaxis,modelo.P(:,1),'b'), hold on;
@@ -168,57 +172,58 @@ elseif npc>4
     plot(xaxis,modelo.P(:,3),'k'), hold on;
     plot(xaxis,modelo.P(:,4),'m'), hold on;
     plot(xaxis,modelo.P(:,5),'c'), hold off;
-    p1=sprintf('Load PC 1 (%0.2f)',modelo.varexp(1,2));  
-    p2=sprintf('Load PC 2 (%0.2f)',modelo.varexp(2,2));  
-    p3=sprintf('Load PC 3 (%0.2f)',modelo.varexp(3,2));  
-    p4=sprintf('Load PC 4 (%0.2f)',modelo.varexp(4,2));  
-    p5=sprintf('Load PC 5 (%0.2f)',modelo.varexp(5,2)); 
+    p1=sprintf('Load PC 1 (%0.2f)',modelo.varexp(1,2));
+    p2=sprintf('Load PC 2 (%0.2f)',modelo.varexp(2,2));
+    p3=sprintf('Load PC 3 (%0.2f)',modelo.varexp(3,2));
+    p4=sprintf('Load PC 4 (%0.2f)',modelo.varexp(4,2));
+    p5=sprintf('Load PC 5 (%0.2f)',modelo.varexp(5,2));
     legend(p1,p2,p3,p4,p5);
-end    
-  
+end
+
 hline(0,'k:');
-xlabel('Numero de onda cm^-^1','FontSize',14)
+xlabel('Variables','FontSize',14)
 ylabel('Loadings','FontSize',14)
+
 
 % Legenda
 if npc==2
-    legend(p1,p2,"Location","northeastoutside");
-elseif npc==3 
-    legend(p1,p2,p3,"Location","northeastoutside");
+    legend("Espectro",p1,p2,"Location","northeastoutside");
+elseif npc==3
+    legend("Espectro",p1,p2,p3,"Location","northeastoutside");
 elseif npc==4
-    legend(p1,p2,p3,p4,"Location","northeastoutside");
+    legend("Espectro",p1,p2,p3,p4,"Location","northeastoutside");
 elseif npc>4
-    legend(p1,p2,p3,p4,p5,"Location","northeastoutside");
-end    
+    legend("Espectro",p1,p2,p3,p4,p5,"Location","northeastoutside");
+end
 
 end
 
 %% Pareto
 
 if options.Pareto > 0;
-   figure(3)   
+   figure(3)
    bar(modelo.varexp(1:npc,2),0.8), hold on
    plot(1:npc,modelo.varexp(1:npc,3),'k.'), hold on
    plot(1:npc,modelo.varexp(1:npc,3),'k'), hold off
    xlabel('Componente Principal','FontSize',14)
-   ylabel('Variancia Explicada (%)','FontSize',14)   
-     
-end
-
-
+   ylabel('Variancia Explicada (%)','FontSize',14)
 
 end
 
-% Grafico Score 
+
+
+end
+
+% Grafico Score
 function grafico_score(T,classX,varexp,PC1,PC2);
-% sub-rotina para fazer o gráfico dos scores
+% sub-rotina para fazer o grï¿½fico dos scores
 [a1,classes]=confusionmat(classX,classX);
 
 if length(classes)==1
-    c1=find(classX==classes(1));   x1=T(c1,:);   d1=sprintf('Classe %g',classes(1)); 
+    c1=find(classX==classes(1));   x1=T(c1,:);   d1=sprintf('Classe %g',classes(1));
     plot(x1(:,PC1),x1(:,PC2),'ko','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[.8,.8,.8]), hold on
 elseif length(classes)==2
-    c1=find(classX==classes(1));   x1=T(c1,:);   d1=sprintf('Classe %g',classes(1)); 
+    c1=find(classX==classes(1));   x1=T(c1,:);   d1=sprintf('Classe %g',classes(1));
     c2=find(classX==classes(2));   x2=T(c2,:);   d2=sprintf('Classe %g',classes(2));
     plot(x1(:,PC1),x1(:,PC2),'ko','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[.8,.8,.8]), hold on
     plot(x2(:,PC1),x2(:,PC2),'r^','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[1,153/255,153/255]), hold off
@@ -255,21 +260,21 @@ elseif length(classes)==6
     c3=find(classX==classes(3));   x3=T(c3,:);   d3=sprintf('Classe %g',classes(3));
     c4=find(classX==classes(4));   x4=T(c4,:);   d4=sprintf('Classe %g',classes(4));
     c5=find(classX==classes(5));   x5=T(c5,:);   d5=sprintf('Classe %g',classes(5));
-    c6=find(classX==classes(6));   x6=T(c6,:);   d6=sprintf('Classe %g',classes(6));    
+    c6=find(classX==classes(6));   x6=T(c6,:);   d6=sprintf('Classe %g',classes(6));
     plot(x1(:,PC1),x1(:,PC2),'ko','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[.8,.8,.8]), hold on
     plot(x2(:,PC1),x2(:,PC2),'r^','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[1,153/255,153/255]), hold on
     plot(x3(:,PC1),x3(:,PC2),'bd','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[153/255,153/255,1]), hold on
     plot(x4(:,PC1),x4(:,PC2),'gs','LineWidth',1,'MarkerSize',6,'MarkerFaceColor',[153/255,1,153/255]), hold on
     plot(x5(:,PC1),x5(:,PC2),'mp','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[1,153/255,1]), hold on
-    plot(x6(:,PC1),x6(:,PC2),'c>','LineWidth',1,'MarkerSize',6,'MarkerFaceColor',[153/255,1,1]), hold off 
+    plot(x6(:,PC1),x6(:,PC2),'c>','LineWidth',1,'MarkerSize',6,'MarkerFaceColor',[153/255,1,1]), hold off
 elseif length(classes)==7
     c1=find(classX==classes(1));   x1=T(c1,:);   d1=sprintf('Classe %g',classes(1));
     c2=find(classX==classes(2));   x2=T(c2,:);   d2=sprintf('Classe %g',classes(2));
     c3=find(classX==classes(3));   x3=T(c3,:);   d3=sprintf('Classe %g',classes(3));
     c4=find(classX==classes(4));   x4=T(c4,:);   d4=sprintf('Classe %g',classes(4));
     c5=find(classX==classes(5));   x5=T(c5,:);   d5=sprintf('Classe %g',classes(5));
-    c6=find(classX==classes(6));   x6=T(c6,:);   d6=sprintf('Classe %g',classes(6));    
-    c7=find(classX==classes(7));   x7=T(c7,:);   d7=sprintf('Classe %g',classes(7));    
+    c6=find(classX==classes(6));   x6=T(c6,:);   d6=sprintf('Classe %g',classes(6));
+    c7=find(classX==classes(7));   x7=T(c7,:);   d7=sprintf('Classe %g',classes(7));
     plot(x1(:,PC1),x1(:,PC2),'ko','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[.8,.8,.8]), hold on
     plot(x2(:,PC1),x2(:,PC2),'r^','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[1,153/255,153/255]), hold on
     plot(x3(:,PC1),x3(:,PC2),'bd','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[153/255,153/255,1]), hold on
@@ -283,9 +288,9 @@ elseif length(classes)==8
     c3=find(classX==classes(3));   x3=T(c3,:);   d3=sprintf('Classe %g',classes(3));
     c4=find(classX==classes(4));   x4=T(c4,:);   d4=sprintf('Classe %g',classes(4));
     c5=find(classX==classes(5));   x5=T(c5,:);   d5=sprintf('Classe %g',classes(5));
-    c6=find(classX==classes(6));   x6=T(c6,:);   d6=sprintf('Classe %g',classes(6));    
-    c7=find(classX==classes(7));   x7=T(c7,:);   d7=sprintf('Classe %g',classes(7));    
-    c8=find(classX==classes(8));   x8=T(c8,:);   d8=sprintf('Classe %g',classes(8));  
+    c6=find(classX==classes(6));   x6=T(c6,:);   d6=sprintf('Classe %g',classes(6));
+    c7=find(classX==classes(7));   x7=T(c7,:);   d7=sprintf('Classe %g',classes(7));
+    c8=find(classX==classes(8));   x8=T(c8,:);   d8=sprintf('Classe %g',classes(8));
     plot(x1(:,PC1),x1(:,PC2),'ko','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[.8,.8,.8]), hold on
     plot(x2(:,PC1),x2(:,PC2),'r^','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[1,153/255,153/255]), hold on
     plot(x3(:,PC1),x3(:,PC2),'bd','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[153/255,153/255,1]), hold on
@@ -293,17 +298,17 @@ elseif length(classes)==8
     plot(x5(:,PC1),x5(:,PC2),'mp','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[1,153/255,1]), hold on
     plot(x6(:,PC1),x6(:,PC2),'c>','LineWidth',1,'MarkerSize',6,'MarkerFaceColor',[153/255,1,1]), hold on
     plot(x7(:,PC1),x7(:,PC2),'k*','LineWidth',1,'MarkerSize',8), hold on
-    plot(x8(:,PC1),x8(:,PC2),'r+','LineWidth',1,'MarkerSize',8), hold off           
+    plot(x8(:,PC1),x8(:,PC2),'r+','LineWidth',1,'MarkerSize',8), hold off
 elseif length(classes)==9
     c1=find(classX==classes(1));   x1=T(c1,:);   d1=sprintf('Classe %g',classes(1));
     c2=find(classX==classes(2));   x2=T(c2,:);   d2=sprintf('Classe %g',classes(2));
     c3=find(classX==classes(3));   x3=T(c3,:);   d3=sprintf('Classe %g',classes(3));
     c4=find(classX==classes(4));   x4=T(c4,:);   d4=sprintf('Classe %g',classes(4));
     c5=find(classX==classes(5));   x5=T(c5,:);   d5=sprintf('Classe %g',classes(5));
-    c6=find(classX==classes(6));   x6=T(c6,:);   d6=sprintf('Classe %g',classes(6));    
-    c7=find(classX==classes(7));   x7=T(c7,:);   d7=sprintf('Classe %g',classes(7));    
-    c8=find(classX==classes(8));   x8=T(c8,:);   d8=sprintf('Classe %g',classes(8));  
-    c9=find(classX==classes(9));   x9=T(c9,:);   d9=sprintf('Classe %g',classes(9)); 
+    c6=find(classX==classes(6));   x6=T(c6,:);   d6=sprintf('Classe %g',classes(6));
+    c7=find(classX==classes(7));   x7=T(c7,:);   d7=sprintf('Classe %g',classes(7));
+    c8=find(classX==classes(8));   x8=T(c8,:);   d8=sprintf('Classe %g',classes(8));
+    c9=find(classX==classes(9));   x9=T(c9,:);   d9=sprintf('Classe %g',classes(9));
     plot(x1(:,PC1),x1(:,PC2),'ko','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[.8,.8,.8]), hold on
     plot(x2(:,PC1),x2(:,PC2),'r^','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[1,153/255,153/255]), hold on
     plot(x3(:,PC1),x3(:,PC2),'bd','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[153/255,153/255,1]), hold on
@@ -312,18 +317,18 @@ elseif length(classes)==9
     plot(x6(:,PC1),x6(:,PC2),'c>','LineWidth',1,'MarkerSize',6,'MarkerFaceColor',[153/255,1,1]), hold on
     plot(x7(:,PC1),x7(:,PC2),'k*','LineWidth',1,'MarkerSize',8), hold on
     plot(x8(:,PC1),x8(:,PC2),'r+','LineWidth',1,'MarkerSize',8), hold on
-    plot(x9(:,PC1),x9(:,PC2),'gv','LineWidth',1,'MarkerSize',6,'MarkerFaceColor',[0,204/255,204/255]), hold off            
+    plot(x9(:,PC1),x9(:,PC2),'gv','LineWidth',1,'MarkerSize',6,'MarkerFaceColor',[0,204/255,204/255]), hold off
 elseif length(classes)==10
     c1=find(classX==classes(1));   x1=T(c1,:);   d1=sprintf('Classe %g',classes(1));
     c2=find(classX==classes(2));   x2=T(c2,:);   d2=sprintf('Classe %g',classes(2));
     c3=find(classX==classes(3));   x3=T(c3,:);   d3=sprintf('Classe %g',classes(3));
     c4=find(classX==classes(4));   x4=T(c4,:);   d4=sprintf('Classe %g',classes(4));
     c5=find(classX==classes(5));   x5=T(c5,:);   d5=sprintf('Classe %g',classes(5));
-    c6=find(classX==classes(6));   x6=T(c6,:);   d6=sprintf('Classe %g',classes(6));    
-    c7=find(classX==classes(7));   x7=T(c7,:);   d7=sprintf('Classe %g',classes(7));    
-    c8=find(classX==classes(8));   x8=T(c8,:);   d8=sprintf('Classe %g',classes(8));  
-    c9=find(classX==classes(9));   x9=T(c9,:);   d9=sprintf('Classe %g',classes(9)); 
-    c10=find(classX==classes(10)); x10=T(c10,:); d10=sprintf('Classe %g',classes(10)); 
+    c6=find(classX==classes(6));   x6=T(c6,:);   d6=sprintf('Classe %g',classes(6));
+    c7=find(classX==classes(7));   x7=T(c7,:);   d7=sprintf('Classe %g',classes(7));
+    c8=find(classX==classes(8));   x8=T(c8,:);   d8=sprintf('Classe %g',classes(8));
+    c9=find(classX==classes(9));   x9=T(c9,:);   d9=sprintf('Classe %g',classes(9));
+    c10=find(classX==classes(10)); x10=T(c10,:); d10=sprintf('Classe %g',classes(10));
     plot(x1(:,PC1),x1(:,PC2),'ko','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[.8,.8,.8]), hold on
     plot(x2(:,PC1),x2(:,PC2),'r^','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[1,153/255,153/255]), hold on
     plot(x3(:,PC1),x3(:,PC2),'bd','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[153/255,153/255,1]), hold on
@@ -333,7 +338,7 @@ elseif length(classes)==10
     plot(x7(:,PC1),x7(:,PC2),'k*','LineWidth',1,'MarkerSize',8), hold on
     plot(x8(:,PC1),x8(:,PC2),'r+','LineWidth',1,'MarkerSize',8), hold on
     plot(x9(:,PC1),x9(:,PC2),'gv','LineWidth',1,'MarkerSize',6,'MarkerFaceColor',[0,204/255,204/255]), hold on
-    plot(x10(:,PC1),x10(:,PC2),'mo','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[204/255,204/255,1]), hold off    
+    plot(x10(:,PC1),x10(:,PC2),'mo','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[204/255,204/255,1]), hold off
 end
 
 hline(0,'k:');
@@ -341,7 +346,7 @@ vline(0,'k:');
 hline(0,'k:');
 msg = 'Scores PC XXX (%0.2f)';
 msgT1 = strrep(msg,'XXX',num2str(PC1));
-msgT2 = strrep(msg,'XXX',num2str(PC2)); 
+msgT2 = strrep(msg,'XXX',num2str(PC2));
 t1=sprintf(msgT1,varexp(PC1,2));  xlabel(t1,'FontSize',14);
 t2=sprintf(msgT2,varexp(PC2,2));  ylabel(t2,'FontSize',14);
 
@@ -358,7 +363,7 @@ elseif length(classes)==5
 elseif length(classes)==6
     legend(d1,d2,d3,d4,d5,d6,"Location","northeastoutside");
 elseif length(classes)==7
-    legend(d1,d2,d3,d4,d5,d6,d7,"Location","northeastoutside");  
+    legend(d1,d2,d3,d4,d5,d6,d7,"Location","northeastoutside");
 elseif length(classes)==8
     legend(d1,d2,d3,d4,d5,d6,d7,d8,"Location","northeastoutside");
 elseif length(classes)==9
@@ -371,15 +376,15 @@ end
 
 % Grafico Score 3D
 function grafico_score3D(T,classX,varexp,PC1,PC2,PC3);
-% sub-rotina para fazer o gráfico dos scores
+% sub-rotina para fazer o grï¿½fico dos scores
 [a1,classes]=confusionmat(classX,classX);
 
     if size(classes,1)==1
-    c1=find(classX==classes(1));   x1=T(c1,:);   d1=sprintf('Classe %g',classes(1)); 
+    c1=find(classX==classes(1));   x1=T(c1,:);   d1=sprintf('Classe %g',classes(1));
     plot3(x1(:,PC1),x1(:,PC2),x1(:,PC3),'ko','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[.8,.8,.8]), hold on
     legend(d1)
     elseif size(classes,1)==2
-    c1=find(classX==classes(1));   x1=T(c1,:);   d1=sprintf('Classe %g',classes(1)); 
+    c1=find(classX==classes(1));   x1=T(c1,:);   d1=sprintf('Classe %g',classes(1));
     c2=find(classX==classes(2));   x2=T(c2,:);   d2=sprintf('Classe %g',classes(2));
     plot3(x1(:,PC1),x1(:,PC2),x1(:,PC3),'ko','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[.8,.8,.8]), hold on
     plot3(x2(:,PC1),x2(:,PC2),x2(:,PC3),'r^','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[1,153/255,153/255]),, hold off
@@ -420,22 +425,22 @@ function grafico_score3D(T,classX,varexp,PC1,PC2,PC3);
     c3=find(classX==classes(3));   x3=T(c3,:);   d3=sprintf('Classe %g',classes(3));
     c4=find(classX==classes(4));   x4=T(c4,:);   d4=sprintf('Classe %g',classes(4));
     c5=find(classX==classes(5));   x5=T(c5,:);   d5=sprintf('Classe %g',classes(5));
-    c6=find(classX==classes(6));   x6=T(c6,:);   d6=sprintf('Classe %g',classes(6));    
+    c6=find(classX==classes(6));   x6=T(c6,:);   d6=sprintf('Classe %g',classes(6));
     plot3(x1(:,PC1),x1(:,PC2),x1(:,PC3),'ko','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[.8,.8,.8]), hold on
     plot3(x2(:,PC1),x2(:,PC2),x2(:,PC3),'r^','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[1,153/255,153/255]), hold on
     plot3(x3(:,PC1),x3(:,PC2),x3(:,PC3),'bd','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[153/255,153/255,1]), hold on
     plot3(x4(:,PC1),x4(:,PC2),x4(:,PC3),'gs','LineWidth',1,'MarkerSize',6,'MarkerFaceColor',[153/255,1,153/255]), hold on
     plot3(x5(:,PC1),x5(:,PC2),x5(:,PC3),'mp','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[1,153/255,1]), hold on
     plot3(x6(:,PC1),x6(:,PC2),x6(:,PC3),'c>','LineWidth',1,'MarkerSize',6,'MarkerFaceColor',[153/255,1,1]), hold off
-    legend(d1,d2,d3,d4,d5,d6)    
+    legend(d1,d2,d3,d4,d5,d6)
     elseif size(classes,1)==7
     c1=find(classX==classes(1));   x1=T(c1,:);   d1=sprintf('Classe %g',classes(1));
     c2=find(classX==classes(2));   x2=T(c2,:);   d2=sprintf('Classe %g',classes(2));
     c3=find(classX==classes(3));   x3=T(c3,:);   d3=sprintf('Classe %g',classes(3));
     c4=find(classX==classes(4));   x4=T(c4,:);   d4=sprintf('Classe %g',classes(4));
     c5=find(classX==classes(5));   x5=T(c5,:);   d5=sprintf('Classe %g',classes(5));
-    c6=find(classX==classes(6));   x6=T(c6,:);   d6=sprintf('Classe %g',classes(6));    
-    c7=find(classX==classes(7));   x7=T(c7,:);   d7=sprintf('Classe %g',classes(7));    
+    c6=find(classX==classes(6));   x6=T(c6,:);   d6=sprintf('Classe %g',classes(6));
+    c7=find(classX==classes(7));   x7=T(c7,:);   d7=sprintf('Classe %g',classes(7));
     plot3(x1(:,PC1),x1(:,PC2),x1(:,PC3),'ko','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[.8,.8,.8]), hold on
     plot3(x2(:,PC1),x2(:,PC2),x2(:,PC3),'r^','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[1,153/255,153/255]), hold on
     plot3(x3(:,PC1),x3(:,PC2),x3(:,PC3),'bd','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[153/255,153/255,1]), hold on
@@ -443,16 +448,16 @@ function grafico_score3D(T,classX,varexp,PC1,PC2,PC3);
     plot3(x5(:,PC1),x5(:,PC2),x5(:,PC3),'mp','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[1,153/255,1]), hold on
     plot3(x6(:,PC1),x6(:,PC2),x6(:,PC3),'c>','LineWidth',1,'MarkerSize',6,'MarkerFaceColor',[153/255,1,1]), hold on
     plot3(x7(:,PC1),x7(:,PC2),x7(:,PC3),'k*','LineWidth',1,'MarkerSize',8), hold off
-    legend(d1,d2,d3,d4,d5,d6,d7)  
+    legend(d1,d2,d3,d4,d5,d6,d7)
     elseif size(classes,1)==8
     c1=find(classX==classes(1));   x1=T(c1,:);   d1=sprintf('Classe %g',classes(1));
     c2=find(classX==classes(2));   x2=T(c2,:);   d2=sprintf('Classe %g',classes(2));
     c3=find(classX==classes(3));   x3=T(c3,:);   d3=sprintf('Classe %g',classes(3));
     c4=find(classX==classes(4));   x4=T(c4,:);   d4=sprintf('Classe %g',classes(4));
     c5=find(classX==classes(5));   x5=T(c5,:);   d5=sprintf('Classe %g',classes(5));
-    c6=find(classX==classes(6));   x6=T(c6,:);   d6=sprintf('Classe %g',classes(6));    
-    c7=find(classX==classes(7));   x7=T(c7,:);   d7=sprintf('Classe %g',classes(7));    
-    c8=find(classX==classes(8));   x8=T(c8,:);   d8=sprintf('Classe %g',classes(8));  
+    c6=find(classX==classes(6));   x6=T(c6,:);   d6=sprintf('Classe %g',classes(6));
+    c7=find(classX==classes(7));   x7=T(c7,:);   d7=sprintf('Classe %g',classes(7));
+    c8=find(classX==classes(8));   x8=T(c8,:);   d8=sprintf('Classe %g',classes(8));
     plot3(x1(:,PC1),x1(:,PC2),x1(:,PC3),'ko','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[.8,.8,.8]), hold on
     plot3(x2(:,PC1),x2(:,PC2),x2(:,PC3),'r^','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[1,153/255,153/255]), hold on
     plot3(x3(:,PC1),x3(:,PC2),x3(:,PC3),'bd','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[153/255,153/255,1]), hold on
@@ -461,17 +466,17 @@ function grafico_score3D(T,classX,varexp,PC1,PC2,PC3);
     plot3(x6(:,PC1),x6(:,PC2),x6(:,PC3),'c>','LineWidth',1,'MarkerSize',6,'MarkerFaceColor',[153/255,1,1]), hold on
     plot3(x7(:,PC1),x7(:,PC2),x7(:,PC3),'k*','LineWidth',1,'MarkerSize',8), hold on
     plot3(x8(:,PC1),x8(:,PC2),x8(:,PC3),'r+','LineWidth',1,'MarkerSize',8), hold off
-    legend(d1,d2,d3,d4,d5,d6,d7,d8)            
+    legend(d1,d2,d3,d4,d5,d6,d7,d8)
     elseif size(classes,1)==9
     c1=find(classX==classes(1));   x1=T(c1,:);   d1=sprintf('Classe %g',classes(1));
     c2=find(classX==classes(2));   x2=T(c2,:);   d2=sprintf('Classe %g',classes(2));
     c3=find(classX==classes(3));   x3=T(c3,:);   d3=sprintf('Classe %g',classes(3));
     c4=find(classX==classes(4));   x4=T(c4,:);   d4=sprintf('Classe %g',classes(4));
     c5=find(classX==classes(5));   x5=T(c5,:);   d5=sprintf('Classe %g',classes(5));
-    c6=find(classX==classes(6));   x6=T(c6,:);   d6=sprintf('Classe %g',classes(6));    
-    c7=find(classX==classes(7));   x7=T(c7,:);   d7=sprintf('Classe %g',classes(7));    
-    c8=find(classX==classes(8));   x8=T(c8,:);   d8=sprintf('Classe %g',classes(8));  
-    c9=find(classX==classes(9));   x9=T(c9,:);   d9=sprintf('Classe %g',classes(9)); 
+    c6=find(classX==classes(6));   x6=T(c6,:);   d6=sprintf('Classe %g',classes(6));
+    c7=find(classX==classes(7));   x7=T(c7,:);   d7=sprintf('Classe %g',classes(7));
+    c8=find(classX==classes(8));   x8=T(c8,:);   d8=sprintf('Classe %g',classes(8));
+    c9=find(classX==classes(9));   x9=T(c9,:);   d9=sprintf('Classe %g',classes(9));
     plot3(x1(:,PC1),x1(:,PC2),x1(:,PC3),'ko','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[.8,.8,.8]), hold on
     plot3(x2(:,PC1),x2(:,PC2),x2(:,PC3),'r^','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[1,153/255,153/255]), hold on
     plot3(x3(:,PC1),x3(:,PC2),x3(:,PC3),'bd','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[153/255,153/255,1]), hold on
@@ -481,18 +486,18 @@ function grafico_score3D(T,classX,varexp,PC1,PC2,PC3);
     plot3(x7(:,PC1),x7(:,PC2),x7(:,PC3),'k*','LineWidth',1,'MarkerSize',8), hold on
     plot3(x8(:,PC1),x8(:,PC2),x8(:,PC3),'r+','LineWidth',1,'MarkerSize',8), hold on
     plot3(x9(:,PC1),x9(:,PC2),x9(:,PC3),'gv','LineWidth',1,'MarkerSize',6,'MarkerFaceColor',[0,204/255,204/255]), hold off
-    legend(d1,d2,d3,d4,d5,d6,d7,d8,d9)                
+    legend(d1,d2,d3,d4,d5,d6,d7,d8,d9)
     elseif size(classes,1)==10
     c1=find(classX==classes(1));   x1=T(c1,:);   d1=sprintf('Classe %g',classes(1));
     c2=find(classX==classes(2));   x2=T(c2,:);   d2=sprintf('Classe %g',classes(2));
     c3=find(classX==classes(3));   x3=T(c3,:);   d3=sprintf('Classe %g',classes(3));
     c4=find(classX==classes(4));   x4=T(c4,:);   d4=sprintf('Classe %g',classes(4));
     c5=find(classX==classes(5));   x5=T(c5,:);   d5=sprintf('Classe %g',classes(5));
-    c6=find(classX==classes(6));   x6=T(c6,:);   d6=sprintf('Classe %g',classes(6));    
-    c7=find(classX==classes(7));   x7=T(c7,:);   d7=sprintf('Classe %g',classes(7));    
-    c8=find(classX==classes(8));   x8=T(c8,:);   d8=sprintf('Classe %g',classes(8));  
-    c9=find(classX==classes(9));   x9=T(c9,:);   d9=sprintf('Classe %g',classes(9)); 
-    c10=find(classX==classes(10)); x10=T(c10,:); d10=sprintf('Classe %g',classes(10)); 
+    c6=find(classX==classes(6));   x6=T(c6,:);   d6=sprintf('Classe %g',classes(6));
+    c7=find(classX==classes(7));   x7=T(c7,:);   d7=sprintf('Classe %g',classes(7));
+    c8=find(classX==classes(8));   x8=T(c8,:);   d8=sprintf('Classe %g',classes(8));
+    c9=find(classX==classes(9));   x9=T(c9,:);   d9=sprintf('Classe %g',classes(9));
+    c10=find(classX==classes(10)); x10=T(c10,:); d10=sprintf('Classe %g',classes(10));
     plot3(x1(:,PC1),x1(:,PC2),x1(:,PC3),'ko','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[.8,.8,.8]), hold on
     plot3(x2(:,PC1),x2(:,PC2),x2(:,PC3),'r^','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[1,153/255,153/255]), hold on
     plot3(x3(:,PC1),x3(:,PC2),x3(:,PC3),'bd','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[153/255,153/255,1]), hold on
@@ -503,7 +508,7 @@ function grafico_score3D(T,classX,varexp,PC1,PC2,PC3);
     plot3(x8(:,PC1),x8(:,PC2),x8(:,PC3),'r+','LineWidth',1,'MarkerSize',8), hold on
     plot3(x9(:,PC1),x9(:,PC2),x9(:,PC3),'gv','LineWidth',1,'MarkerSize',6,'MarkerFaceColor',[0,204/255,204/255]), hold on
     plot3(x10(:,PC1),x10(:,PC2),x10(:,PC3),'mo','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[204/255,204/255,1]), hold off
-    legend(d1,d2,d3,d4,d5,d6,d7,d8,d9,d10)    
+    legend(d1,d2,d3,d4,d5,d6,d7,d8,d9,d10)
     else
         error("Nao foi programado para mais de 10 classes.");
     end
@@ -511,8 +516,8 @@ function grafico_score3D(T,classX,varexp,PC1,PC2,PC3);
 grid on
 msg = 'Scores PC XXX (%0.2f)';
 msgT1 = strrep(msg,'XXX',num2str(PC1));
-msgT2 = strrep(msg,'XXX',num2str(PC2)); 
-msgT3 = strrep(msg,'XXX',num2str(PC3)); 
+msgT2 = strrep(msg,'XXX',num2str(PC2));
+msgT3 = strrep(msg,'XXX',num2str(PC3));
 t1=sprintf(msgT1,varexp(PC1,2));  xlabel(t1,'FontSize',14);
 t2=sprintf(msgT2,varexp(PC2,2));  ylabel(t2,'FontSize',14);
 t3=sprintf(msgT3,varexp(PC3,2));  zlabel(t3,'FontSize',14);
@@ -530,7 +535,7 @@ elseif length(classes)==5
 elseif length(classes)==6
     legend(d1,d2,d3,d4,d5,d6,"Location","northeastoutside");
 elseif length(classes)==7
-    legend(d1,d2,d3,d4,d5,d6,d7,"Location","northeastoutside");  
+    legend(d1,d2,d3,d4,d5,d6,d7,"Location","northeastoutside");
 elseif length(classes)==8
     legend(d1,d2,d3,d4,d5,d6,d7,d8,"Location","northeastoutside");
 elseif length(classes)==9
@@ -543,7 +548,7 @@ end
 
 % Grafico Score biplot
 function graf_S_L(T,P,classX,varexp,spname,PC1,PC2);
-% sub-rotina para fazer o gráfico dos scores
+% sub-rotina para fazer o grï¿½fico dos scores
 P2 = P(:,[PC1 PC2]);
 T2 = T(:,[PC1 PC2]);
 nvar = spname;
@@ -553,10 +558,10 @@ nvar = spname;
 [a1,classes]=confusionmat(classX,classX);
 
 if length(classes)==1
-    c1=find(classX==classes(1));   x1=T(c1,:);   d1=sprintf('Classe %g',classes(1)); 
+    c1=find(classX==classes(1));   x1=T(c1,:);   d1=sprintf('Classe %g',classes(1));
     plot(x1(:,PC1),x1(:,PC2),'ko','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[.8,.8,.8]), hold on
 elseif length(classes)==2
-    c1=find(classX==classes(1));   x1=T(c1,:);   d1=sprintf('Classe %g',classes(1)); 
+    c1=find(classX==classes(1));   x1=T(c1,:);   d1=sprintf('Classe %g',classes(1));
     c2=find(classX==classes(2));   x2=T(c2,:);   d2=sprintf('Classe %g',classes(2));
     plot(x1(:,PC1),x1(:,PC2),'ko','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[.8,.8,.8]), hold on
     plot(x2(:,PC1),x2(:,PC2),'r^','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[1,153/255,153/255]), hold on
@@ -593,21 +598,21 @@ elseif length(classes)==6
     c3=find(classX==classes(3));   x3=T(c3,:);   d3=sprintf('Classe %g',classes(3));
     c4=find(classX==classes(4));   x4=T(c4,:);   d4=sprintf('Classe %g',classes(4));
     c5=find(classX==classes(5));   x5=T(c5,:);   d5=sprintf('Classe %g',classes(5));
-    c6=find(classX==classes(6));   x6=T(c6,:);   d6=sprintf('Classe %g',classes(6));    
+    c6=find(classX==classes(6));   x6=T(c6,:);   d6=sprintf('Classe %g',classes(6));
     plot(x1(:,PC1),x1(:,PC2),'ko','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[.8,.8,.8]), hold on
     plot(x2(:,PC1),x2(:,PC2),'r^','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[1,153/255,153/255]), hold on
     plot(x3(:,PC1),x3(:,PC2),'bd','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[153/255,153/255,1]), hold on
     plot(x4(:,PC1),x4(:,PC2),'gs','LineWidth',1,'MarkerSize',6,'MarkerFaceColor',[153/255,1,153/255]), hold on
     plot(x5(:,PC1),x5(:,PC2),'mp','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[1,153/255,1]), hold on
-    plot(x6(:,PC1),x6(:,PC2),'c>','LineWidth',1,'MarkerSize',6,'MarkerFaceColor',[153/255,1,1]), hold on 
+    plot(x6(:,PC1),x6(:,PC2),'c>','LineWidth',1,'MarkerSize',6,'MarkerFaceColor',[153/255,1,1]), hold on
 elseif length(classes)==7
     c1=find(classX==classes(1));   x1=T(c1,:);   d1=sprintf('Classe %g',classes(1));
     c2=find(classX==classes(2));   x2=T(c2,:);   d2=sprintf('Classe %g',classes(2));
     c3=find(classX==classes(3));   x3=T(c3,:);   d3=sprintf('Classe %g',classes(3));
     c4=find(classX==classes(4));   x4=T(c4,:);   d4=sprintf('Classe %g',classes(4));
     c5=find(classX==classes(5));   x5=T(c5,:);   d5=sprintf('Classe %g',classes(5));
-    c6=find(classX==classes(6));   x6=T(c6,:);   d6=sprintf('Classe %g',classes(6));    
-    c7=find(classX==classes(7));   x7=T(c7,:);   d7=sprintf('Classe %g',classes(7));    
+    c6=find(classX==classes(6));   x6=T(c6,:);   d6=sprintf('Classe %g',classes(6));
+    c7=find(classX==classes(7));   x7=T(c7,:);   d7=sprintf('Classe %g',classes(7));
     plot(x1(:,PC1),x1(:,PC2),'ko','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[.8,.8,.8]), hold on
     plot(x2(:,PC1),x2(:,PC2),'r^','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[1,153/255,153/255]), hold on
     plot(x3(:,PC1),x3(:,PC2),'bd','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[153/255,153/255,1]), hold on
@@ -621,27 +626,9 @@ elseif length(classes)==8
     c3=find(classX==classes(3));   x3=T(c3,:);   d3=sprintf('Classe %g',classes(3));
     c4=find(classX==classes(4));   x4=T(c4,:);   d4=sprintf('Classe %g',classes(4));
     c5=find(classX==classes(5));   x5=T(c5,:);   d5=sprintf('Classe %g',classes(5));
-    c6=find(classX==classes(6));   x6=T(c6,:);   d6=sprintf('Classe %g',classes(6));    
-    c7=find(classX==classes(7));   x7=T(c7,:);   d7=sprintf('Classe %g',classes(7));    
-    c8=find(classX==classes(8));   x8=T(c8,:);   d8=sprintf('Classe %g',classes(8));  
-    plot(x1(:,PC1),x1(:,PC2),'ko','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[.8,.8,.8]), hold on
-    plot(x2(:,PC1),x2(:,PC2),'r^','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[1,153/255,153/255]), hold on
-    plot(x3(:,PC1),x3(:,PC2),'bd','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[153/255,153/255,1]), hold on
-    plot(x4(:,PC1),x4(:,PC2),'gs','LineWidth',1,'MarkerSize',6,'MarkerFaceColor',[153/255,1,153/255]), hold on
-    plot(x5(:,PC1),x5(:,PC2),'mp','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[1,153/255,1]), hold on
-    plot(x6(:,PC1),x6(:,PC2),'c>','LineWidth',1,'MarkerSize',6,'MarkerFaceColor',[153/255,1,1]), hold on
-    plot(x7(:,PC1),x7(:,PC2),'k*','LineWidth',1,'MarkerSize',8), hold on
-    plot(x8(:,PC1),x8(:,PC2),'r+','LineWidth',1,'MarkerSize',8), hold on           
-elseif length(classes)==9
-    c1=find(classX==classes(1));   x1=T(c1,:);   d1=sprintf('Classe %g',classes(1));
-    c2=find(classX==classes(2));   x2=T(c2,:);   d2=sprintf('Classe %g',classes(2));
-    c3=find(classX==classes(3));   x3=T(c3,:);   d3=sprintf('Classe %g',classes(3));
-    c4=find(classX==classes(4));   x4=T(c4,:);   d4=sprintf('Classe %g',classes(4));
-    c5=find(classX==classes(5));   x5=T(c5,:);   d5=sprintf('Classe %g',classes(5));
-    c6=find(classX==classes(6));   x6=T(c6,:);   d6=sprintf('Classe %g',classes(6));    
-    c7=find(classX==classes(7));   x7=T(c7,:);   d7=sprintf('Classe %g',classes(7));    
-    c8=find(classX==classes(8));   x8=T(c8,:);   d8=sprintf('Classe %g',classes(8));  
-    c9=find(classX==classes(9));   x9=T(c9,:);   d9=sprintf('Classe %g',classes(9)); 
+    c6=find(classX==classes(6));   x6=T(c6,:);   d6=sprintf('Classe %g',classes(6));
+    c7=find(classX==classes(7));   x7=T(c7,:);   d7=sprintf('Classe %g',classes(7));
+    c8=find(classX==classes(8));   x8=T(c8,:);   d8=sprintf('Classe %g',classes(8));
     plot(x1(:,PC1),x1(:,PC2),'ko','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[.8,.8,.8]), hold on
     plot(x2(:,PC1),x2(:,PC2),'r^','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[1,153/255,153/255]), hold on
     plot(x3(:,PC1),x3(:,PC2),'bd','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[153/255,153/255,1]), hold on
@@ -650,18 +637,16 @@ elseif length(classes)==9
     plot(x6(:,PC1),x6(:,PC2),'c>','LineWidth',1,'MarkerSize',6,'MarkerFaceColor',[153/255,1,1]), hold on
     plot(x7(:,PC1),x7(:,PC2),'k*','LineWidth',1,'MarkerSize',8), hold on
     plot(x8(:,PC1),x8(:,PC2),'r+','LineWidth',1,'MarkerSize',8), hold on
-    plot(x9(:,PC1),x9(:,PC2),'gv','LineWidth',1,'MarkerSize',6,'MarkerFaceColor',[0,204/255,204/255]), hold on            
-elseif length(classes)==10
+elseif length(classes)==9
     c1=find(classX==classes(1));   x1=T(c1,:);   d1=sprintf('Classe %g',classes(1));
     c2=find(classX==classes(2));   x2=T(c2,:);   d2=sprintf('Classe %g',classes(2));
     c3=find(classX==classes(3));   x3=T(c3,:);   d3=sprintf('Classe %g',classes(3));
     c4=find(classX==classes(4));   x4=T(c4,:);   d4=sprintf('Classe %g',classes(4));
     c5=find(classX==classes(5));   x5=T(c5,:);   d5=sprintf('Classe %g',classes(5));
-    c6=find(classX==classes(6));   x6=T(c6,:);   d6=sprintf('Classe %g',classes(6));    
-    c7=find(classX==classes(7));   x7=T(c7,:);   d7=sprintf('Classe %g',classes(7));    
-    c8=find(classX==classes(8));   x8=T(c8,:);   d8=sprintf('Classe %g',classes(8));  
-    c9=find(classX==classes(9));   x9=T(c9,:);   d9=sprintf('Classe %g',classes(9)); 
-    c10=find(classX==classes(10)); x10=T(c10,:); d10=sprintf('Classe %g',classes(10)); 
+    c6=find(classX==classes(6));   x6=T(c6,:);   d6=sprintf('Classe %g',classes(6));
+    c7=find(classX==classes(7));   x7=T(c7,:);   d7=sprintf('Classe %g',classes(7));
+    c8=find(classX==classes(8));   x8=T(c8,:);   d8=sprintf('Classe %g',classes(8));
+    c9=find(classX==classes(9));   x9=T(c9,:);   d9=sprintf('Classe %g',classes(9));
     plot(x1(:,PC1),x1(:,PC2),'ko','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[.8,.8,.8]), hold on
     plot(x2(:,PC1),x2(:,PC2),'r^','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[1,153/255,153/255]), hold on
     plot(x3(:,PC1),x3(:,PC2),'bd','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[153/255,153/255,1]), hold on
@@ -671,16 +656,36 @@ elseif length(classes)==10
     plot(x7(:,PC1),x7(:,PC2),'k*','LineWidth',1,'MarkerSize',8), hold on
     plot(x8(:,PC1),x8(:,PC2),'r+','LineWidth',1,'MarkerSize',8), hold on
     plot(x9(:,PC1),x9(:,PC2),'gv','LineWidth',1,'MarkerSize',6,'MarkerFaceColor',[0,204/255,204/255]), hold on
-    plot(x10(:,PC1),x10(:,PC2),'mo','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[204/255,204/255,1]), hold on    
+elseif length(classes)==10
+    c1=find(classX==classes(1));   x1=T(c1,:);   d1=sprintf('Classe %g',classes(1));
+    c2=find(classX==classes(2));   x2=T(c2,:);   d2=sprintf('Classe %g',classes(2));
+    c3=find(classX==classes(3));   x3=T(c3,:);   d3=sprintf('Classe %g',classes(3));
+    c4=find(classX==classes(4));   x4=T(c4,:);   d4=sprintf('Classe %g',classes(4));
+    c5=find(classX==classes(5));   x5=T(c5,:);   d5=sprintf('Classe %g',classes(5));
+    c6=find(classX==classes(6));   x6=T(c6,:);   d6=sprintf('Classe %g',classes(6));
+    c7=find(classX==classes(7));   x7=T(c7,:);   d7=sprintf('Classe %g',classes(7));
+    c8=find(classX==classes(8));   x8=T(c8,:);   d8=sprintf('Classe %g',classes(8));
+    c9=find(classX==classes(9));   x9=T(c9,:);   d9=sprintf('Classe %g',classes(9));
+    c10=find(classX==classes(10)); x10=T(c10,:); d10=sprintf('Classe %g',classes(10));
+    plot(x1(:,PC1),x1(:,PC2),'ko','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[.8,.8,.8]), hold on
+    plot(x2(:,PC1),x2(:,PC2),'r^','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[1,153/255,153/255]), hold on
+    plot(x3(:,PC1),x3(:,PC2),'bd','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[153/255,153/255,1]), hold on
+    plot(x4(:,PC1),x4(:,PC2),'gs','LineWidth',1,'MarkerSize',6,'MarkerFaceColor',[153/255,1,153/255]), hold on
+    plot(x5(:,PC1),x5(:,PC2),'mp','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[1,153/255,1]), hold on
+    plot(x6(:,PC1),x6(:,PC2),'c>','LineWidth',1,'MarkerSize',6,'MarkerFaceColor',[153/255,1,1]), hold on
+    plot(x7(:,PC1),x7(:,PC2),'k*','LineWidth',1,'MarkerSize',8), hold on
+    plot(x8(:,PC1),x8(:,PC2),'r+','LineWidth',1,'MarkerSize',8), hold on
+    plot(x9(:,PC1),x9(:,PC2),'gv','LineWidth',1,'MarkerSize',6,'MarkerFaceColor',[0,204/255,204/255]), hold on
+    plot(x10(:,PC1),x10(:,PC2),'mo','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[204/255,204/255,1]), hold on
 end
 
 %% Parte dos Loadings
 for ki=1:size(P,1); %ki=3
-        px1=[0,max(max(T2))*P2(ki,1)];    px2=[0,max(max(T2))*P2(ki,2)]; 
-        plot(px1,px2,'b','LineWidth',2), hold on        
+        px1=[0,max(max(T2))*P2(ki,1)];    px2=[0,max(max(T2))*P2(ki,2)];
+        plot(px1,px2,'b','LineWidth',2), hold on
 end
 for ki=1:size(P,1);
-px1=[0,max(max(T2))*P2(ki,1)];    px2=[0,max(max(T2))*P2(ki,2)]; 
+px1=[0,max(max(T2))*P2(ki,1)];    px2=[0,max(max(T2))*P2(ki,2)];
     if iscell(spname)==1
             text(px1(2),px2(2),nvar{ki},'FontSize',12);
     elseif iscell(spname)==0;
@@ -690,13 +695,13 @@ px1=[0,max(max(T2))*P2(ki,1)];    px2=[0,max(max(T2))*P2(ki,2)];
     end
 end
 
-%% Outras informações
+%% Outras informaï¿½ï¿½es
 
 hline(0,'k:');vline(0,'k:');
 hline(0,'k:');vline(0,'k:'); %Sim, duas vezes.
 msg = 'Scores PC XXX (%0.2f)';
 msgT1 = strrep(msg,'XXX',num2str(PC1));
-msgT2 = strrep(msg,'XXX',num2str(PC2)); 
+msgT2 = strrep(msg,'XXX',num2str(PC2));
 t1=sprintf(msgT1,varexp(PC1,2));  xlabel(t1,'FontSize',14);
 t2=sprintf(msgT2,varexp(PC2,2));  ylabel(t2,'FontSize',14);
 
@@ -713,7 +718,7 @@ elseif length(classes)==5
 elseif length(classes)==6
     legend(d1,d2,d3,d4,d5,d6,"Location","northeastoutside");
 elseif length(classes)==7
-    legend(d1,d2,d3,d4,d5,d6,d7,"Location","northeastoutside");  
+    legend(d1,d2,d3,d4,d5,d6,d7,"Location","northeastoutside");
 elseif length(classes)==8
     legend(d1,d2,d3,d4,d5,d6,d7,d8,"Location","northeastoutside");
 elseif length(classes)==9
@@ -726,7 +731,7 @@ end
 
 % Grafico Score biplot 3d
 function graf_S_L_3d(T,P,classX,varexp,spname,PC1,PC2,PC3);
-% sub-rotina para fazer o gráfico dos scores
+% sub-rotina para fazer o grï¿½fico dos scores
 P2 = P(:,[PC1 PC2 PC3]);
 T2 = T(:,[PC1 PC2 PC3]);
 nvar = spname;
@@ -736,11 +741,11 @@ nvar = spname;
 [a1,classes]=confusionmat(classX,classX);
 
     if size(classes,1)==1
-    c1=find(classX==classes(1));   x1=T(c1,:);   d1=sprintf('Classe %g',classes(1)); 
+    c1=find(classX==classes(1));   x1=T(c1,:);   d1=sprintf('Classe %g',classes(1));
     plot3(x1(:,PC1),x1(:,PC2),x1(:,PC3),'ko','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[.8,.8,.8]), hold on
     legend(d1)
     elseif size(classes,1)==2
-    c1=find(classX==classes(1));   x1=T(c1,:);   d1=sprintf('Classe %g',classes(1)); 
+    c1=find(classX==classes(1));   x1=T(c1,:);   d1=sprintf('Classe %g',classes(1));
     c2=find(classX==classes(2));   x2=T(c2,:);   d2=sprintf('Classe %g',classes(2));
     plot3(x1(:,PC1),x1(:,PC2),x1(:,PC3),'ko','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[.8,.8,.8]), hold on
     plot3(x2(:,PC1),x2(:,PC2),x2(:,PC3),'r^','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[1,153/255,153/255]),, hold on
@@ -781,22 +786,22 @@ nvar = spname;
     c3=find(classX==classes(3));   x3=T(c3,:);   d3=sprintf('Classe %g',classes(3));
     c4=find(classX==classes(4));   x4=T(c4,:);   d4=sprintf('Classe %g',classes(4));
     c5=find(classX==classes(5));   x5=T(c5,:);   d5=sprintf('Classe %g',classes(5));
-    c6=find(classX==classes(6));   x6=T(c6,:);   d6=sprintf('Classe %g',classes(6));    
+    c6=find(classX==classes(6));   x6=T(c6,:);   d6=sprintf('Classe %g',classes(6));
     plot3(x1(:,PC1),x1(:,PC2),x1(:,PC3),'ko','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[.8,.8,.8]), hold on
     plot3(x2(:,PC1),x2(:,PC2),x2(:,PC3),'r^','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[1,153/255,153/255]), hold on
     plot3(x3(:,PC1),x3(:,PC2),x3(:,PC3),'bd','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[153/255,153/255,1]), hold on
     plot3(x4(:,PC1),x4(:,PC2),x4(:,PC3),'gs','LineWidth',1,'MarkerSize',6,'MarkerFaceColor',[153/255,1,153/255]), hold on
     plot3(x5(:,PC1),x5(:,PC2),x5(:,PC3),'mp','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[1,153/255,1]), hold on
     plot3(x6(:,PC1),x6(:,PC2),x6(:,PC3),'c>','LineWidth',1,'MarkerSize',6,'MarkerFaceColor',[153/255,1,1]), hold on
-    legend(d1,d2,d3,d4,d5,d6)    
+    legend(d1,d2,d3,d4,d5,d6)
     elseif size(classes,1)==7
     c1=find(classX==classes(1));   x1=T(c1,:);   d1=sprintf('Classe %g',classes(1));
     c2=find(classX==classes(2));   x2=T(c2,:);   d2=sprintf('Classe %g',classes(2));
     c3=find(classX==classes(3));   x3=T(c3,:);   d3=sprintf('Classe %g',classes(3));
     c4=find(classX==classes(4));   x4=T(c4,:);   d4=sprintf('Classe %g',classes(4));
     c5=find(classX==classes(5));   x5=T(c5,:);   d5=sprintf('Classe %g',classes(5));
-    c6=find(classX==classes(6));   x6=T(c6,:);   d6=sprintf('Classe %g',classes(6));    
-    c7=find(classX==classes(7));   x7=T(c7,:);   d7=sprintf('Classe %g',classes(7));    
+    c6=find(classX==classes(6));   x6=T(c6,:);   d6=sprintf('Classe %g',classes(6));
+    c7=find(classX==classes(7));   x7=T(c7,:);   d7=sprintf('Classe %g',classes(7));
     plot3(x1(:,PC1),x1(:,PC2),x1(:,PC3),'ko','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[.8,.8,.8]), hold on
     plot3(x2(:,PC1),x2(:,PC2),x2(:,PC3),'r^','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[1,153/255,153/255]), hold on
     plot3(x3(:,PC1),x3(:,PC2),x3(:,PC3),'bd','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[153/255,153/255,1]), hold on
@@ -804,16 +809,16 @@ nvar = spname;
     plot3(x5(:,PC1),x5(:,PC2),x5(:,PC3),'mp','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[1,153/255,1]), hold on
     plot3(x6(:,PC1),x6(:,PC2),x6(:,PC3),'c>','LineWidth',1,'MarkerSize',6,'MarkerFaceColor',[153/255,1,1]), hold on
     plot3(x7(:,PC1),x7(:,PC2),x7(:,PC3),'k*','LineWidth',1,'MarkerSize',8), hold on
-    legend(d1,d2,d3,d4,d5,d6,d7)  
+    legend(d1,d2,d3,d4,d5,d6,d7)
     elseif size(classes,1)==8
     c1=find(classX==classes(1));   x1=T(c1,:);   d1=sprintf('Classe %g',classes(1));
     c2=find(classX==classes(2));   x2=T(c2,:);   d2=sprintf('Classe %g',classes(2));
     c3=find(classX==classes(3));   x3=T(c3,:);   d3=sprintf('Classe %g',classes(3));
     c4=find(classX==classes(4));   x4=T(c4,:);   d4=sprintf('Classe %g',classes(4));
     c5=find(classX==classes(5));   x5=T(c5,:);   d5=sprintf('Classe %g',classes(5));
-    c6=find(classX==classes(6));   x6=T(c6,:);   d6=sprintf('Classe %g',classes(6));    
-    c7=find(classX==classes(7));   x7=T(c7,:);   d7=sprintf('Classe %g',classes(7));    
-    c8=find(classX==classes(8));   x8=T(c8,:);   d8=sprintf('Classe %g',classes(8));  
+    c6=find(classX==classes(6));   x6=T(c6,:);   d6=sprintf('Classe %g',classes(6));
+    c7=find(classX==classes(7));   x7=T(c7,:);   d7=sprintf('Classe %g',classes(7));
+    c8=find(classX==classes(8));   x8=T(c8,:);   d8=sprintf('Classe %g',classes(8));
     plot3(x1(:,PC1),x1(:,PC2),x1(:,PC3),'ko','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[.8,.8,.8]), hold on
     plot3(x2(:,PC1),x2(:,PC2),x2(:,PC3),'r^','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[1,153/255,153/255]), hold on
     plot3(x3(:,PC1),x3(:,PC2),x3(:,PC3),'bd','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[153/255,153/255,1]), hold on
@@ -822,17 +827,17 @@ nvar = spname;
     plot3(x6(:,PC1),x6(:,PC2),x6(:,PC3),'c>','LineWidth',1,'MarkerSize',6,'MarkerFaceColor',[153/255,1,1]), hold on
     plot3(x7(:,PC1),x7(:,PC2),x7(:,PC3),'k*','LineWidth',1,'MarkerSize',8), hold on
     plot3(x8(:,PC1),x8(:,PC2),x8(:,PC3),'r+','LineWidth',1,'MarkerSize',8), hold on
-    legend(d1,d2,d3,d4,d5,d6,d7,d8)            
+    legend(d1,d2,d3,d4,d5,d6,d7,d8)
     elseif size(classes,1)==9
     c1=find(classX==classes(1));   x1=T(c1,:);   d1=sprintf('Classe %g',classes(1));
     c2=find(classX==classes(2));   x2=T(c2,:);   d2=sprintf('Classe %g',classes(2));
     c3=find(classX==classes(3));   x3=T(c3,:);   d3=sprintf('Classe %g',classes(3));
     c4=find(classX==classes(4));   x4=T(c4,:);   d4=sprintf('Classe %g',classes(4));
     c5=find(classX==classes(5));   x5=T(c5,:);   d5=sprintf('Classe %g',classes(5));
-    c6=find(classX==classes(6));   x6=T(c6,:);   d6=sprintf('Classe %g',classes(6));    
-    c7=find(classX==classes(7));   x7=T(c7,:);   d7=sprintf('Classe %g',classes(7));    
-    c8=find(classX==classes(8));   x8=T(c8,:);   d8=sprintf('Classe %g',classes(8));  
-    c9=find(classX==classes(9));   x9=T(c9,:);   d9=sprintf('Classe %g',classes(9)); 
+    c6=find(classX==classes(6));   x6=T(c6,:);   d6=sprintf('Classe %g',classes(6));
+    c7=find(classX==classes(7));   x7=T(c7,:);   d7=sprintf('Classe %g',classes(7));
+    c8=find(classX==classes(8));   x8=T(c8,:);   d8=sprintf('Classe %g',classes(8));
+    c9=find(classX==classes(9));   x9=T(c9,:);   d9=sprintf('Classe %g',classes(9));
     plot3(x1(:,PC1),x1(:,PC2),x1(:,PC3),'ko','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[.8,.8,.8]), hold on
     plot3(x2(:,PC1),x2(:,PC2),x2(:,PC3),'r^','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[1,153/255,153/255]), hold on
     plot3(x3(:,PC1),x3(:,PC2),x3(:,PC3),'bd','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[153/255,153/255,1]), hold on
@@ -842,18 +847,18 @@ nvar = spname;
     plot3(x7(:,PC1),x7(:,PC2),x7(:,PC3),'k*','LineWidth',1,'MarkerSize',8), hold on
     plot3(x8(:,PC1),x8(:,PC2),x8(:,PC3),'r+','LineWidth',1,'MarkerSize',8), hold on
     plot3(x9(:,PC1),x9(:,PC2),x9(:,PC3),'gv','LineWidth',1,'MarkerSize',6,'MarkerFaceColor',[0,204/255,204/255]), hold on
-    legend(d1,d2,d3,d4,d5,d6,d7,d8,d9)                
+    legend(d1,d2,d3,d4,d5,d6,d7,d8,d9)
     elseif size(classes,1)==10
     c1=find(classX==classes(1));   x1=T(c1,:);   d1=sprintf('Classe %g',classes(1));
     c2=find(classX==classes(2));   x2=T(c2,:);   d2=sprintf('Classe %g',classes(2));
     c3=find(classX==classes(3));   x3=T(c3,:);   d3=sprintf('Classe %g',classes(3));
     c4=find(classX==classes(4));   x4=T(c4,:);   d4=sprintf('Classe %g',classes(4));
     c5=find(classX==classes(5));   x5=T(c5,:);   d5=sprintf('Classe %g',classes(5));
-    c6=find(classX==classes(6));   x6=T(c6,:);   d6=sprintf('Classe %g',classes(6));    
-    c7=find(classX==classes(7));   x7=T(c7,:);   d7=sprintf('Classe %g',classes(7));    
-    c8=find(classX==classes(8));   x8=T(c8,:);   d8=sprintf('Classe %g',classes(8));  
-    c9=find(classX==classes(9));   x9=T(c9,:);   d9=sprintf('Classe %g',classes(9)); 
-    c10=find(classX==classes(10)); x10=T(c10,:); d10=sprintf('Classe %g',classes(10)); 
+    c6=find(classX==classes(6));   x6=T(c6,:);   d6=sprintf('Classe %g',classes(6));
+    c7=find(classX==classes(7));   x7=T(c7,:);   d7=sprintf('Classe %g',classes(7));
+    c8=find(classX==classes(8));   x8=T(c8,:);   d8=sprintf('Classe %g',classes(8));
+    c9=find(classX==classes(9));   x9=T(c9,:);   d9=sprintf('Classe %g',classes(9));
+    c10=find(classX==classes(10)); x10=T(c10,:); d10=sprintf('Classe %g',classes(10));
     plot3(x1(:,PC1),x1(:,PC2),x1(:,PC3),'ko','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[.8,.8,.8]), hold on
     plot3(x2(:,PC1),x2(:,PC2),x2(:,PC3),'r^','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[1,153/255,153/255]), hold on
     plot3(x3(:,PC1),x3(:,PC2),x3(:,PC3),'bd','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[153/255,153/255,1]), hold on
@@ -864,42 +869,42 @@ nvar = spname;
     plot3(x8(:,PC1),x8(:,PC2),x8(:,PC3),'r+','LineWidth',1,'MarkerSize',8), hold on
     plot3(x9(:,PC1),x9(:,PC2),x9(:,PC3),'gv','LineWidth',1,'MarkerSize',6,'MarkerFaceColor',[0,204/255,204/255]), hold on
     plot3(x10(:,PC1),x10(:,PC2),x10(:,PC3),'mo','LineWidth',1,'MarkerSize',8,'MarkerFaceColor',[204/255,204/255,1]), hold on
-    legend(d1,d2,d3,d4,d5,d6,d7,d8,d9,d10)    
+    legend(d1,d2,d3,d4,d5,d6,d7,d8,d9,d10)
     else
         error("Nao foi programado para mais de 10 classes.");
     end
 
 %% Parte dos Loadings
 for ki=1:size(P,1); %ki=3
-    
-    px1=[0,max(max(T2))*P2(ki,1)];    
-    px2=[0,max(max(T2))*P2(ki,2)]; 
-    px3=[0,max(max(T2))*P2(ki,3)]; 
-        
-    plot3(px1,px2,px3,'b','LineWidth',2); hold on    
-    
+
+    px1=[0,max(max(T2))*P2(ki,1)];
+    px2=[0,max(max(T2))*P2(ki,2)];
+    px3=[0,max(max(T2))*P2(ki,3)];
+
+    plot3(px1,px2,px3,'b','LineWidth',2); hold on
+
 end
 for ki=1:size(P,1);
-    px1=[0,max(max(T2))*P2(ki,1)];    
-    px2=[0,max(max(T2))*P2(ki,2)]; 
-    px3=[0,max(max(T2))*P2(ki,3)]; 
+    px1=[0,max(max(T2))*P2(ki,1)];
+    px2=[0,max(max(T2))*P2(ki,2)];
+    px3=[0,max(max(T2))*P2(ki,3)];
     if iscell(spname)==1
             text(px1(2),px2(2),px3(2),nvar{ki},'FontSize',12);
     elseif iscell(spname)==0;
             text(px1(2),px2(2),px3(2),num2str(ki),'FontSize',12);
     else
-            ptexto = strcat('X',num2str(ki));    
+            ptexto = strcat('X',num2str(ki));
             text(px1(2),px2(2),px3(2),ptexto,'FontSize',12);
     end
 end
 
-%% Outras informações
+%% Outras informaï¿½ï¿½es
 
 grid on
 msg = 'Scores PC XXX (%0.2f)';
 msgT1 = strrep(msg,'XXX',num2str(PC1));
-msgT2 = strrep(msg,'XXX',num2str(PC2)); 
-msgT3 = strrep(msg,'XXX',num2str(PC3)); 
+msgT2 = strrep(msg,'XXX',num2str(PC2));
+msgT3 = strrep(msg,'XXX',num2str(PC3));
 t1=sprintf(msgT1,varexp(PC1,2));  xlabel(t1,'FontSize',14);
 t2=sprintf(msgT2,varexp(PC2,2));  ylabel(t2,'FontSize',14);
 t3=sprintf(msgT3,varexp(PC3,2));  zlabel(t3,'FontSize',14);
@@ -917,7 +922,7 @@ elseif length(classes)==5
 elseif length(classes)==6
     legend(d1,d2,d3,d4,d5,d6,"Location","northeastoutside");
 elseif length(classes)==7
-    legend(d1,d2,d3,d4,d5,d6,d7,"Location","northeastoutside");  
+    legend(d1,d2,d3,d4,d5,d6,d7,"Location","northeastoutside");
 elseif length(classes)==8
     legend(d1,d2,d3,d4,d5,d6,d7,d8,"Location","northeastoutside");
 elseif length(classes)==9
