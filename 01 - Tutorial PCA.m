@@ -143,7 +143,11 @@ pcaplot(modelo,1,2,options);
 % tutorial para leigo, iremos nos aprofundar somente no primeiro.
 
 % Pretratamento,
-%% FAZER UM BREVE RESUMO DO USO DO PRETRATAMENTO.
+% O pré-tratamento consiste na correção espectral das amostras para suavizar
+% possíveis variações indesejadas (ruídos ou interferentes). Tem como principal
+% objetivo ajudar o modelo a extrair as informacoes necessarias para a
+% construcao do mesmo. Todavia, deve ser realizada com cuidada para nao remover
+% informacoes relevantes.
 
 % Entre as funcoes utilizadas, temos o pretrat, cujo o objetivo é aplicar alguns
 % pretratamento em fontes analiticas, podendo ser:
